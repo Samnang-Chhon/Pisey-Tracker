@@ -290,8 +290,8 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;height:100vh;overflow:h
               <input type="text" id="nce" placeholder="e.g. Gym">
             </div>
             <div class="fg" style="flex:1;min-width:110px">
-              <label>&#x1794;&#x17D2;&#x179A;&#x1797;&#x17C1;&#x178F; (KH)</label>
-              <input type="text" id="nck" placeholder="e.g. &#x1780;&#x17B8;&#x179B;&#x17B6;">
+              <label>&#6036;&#6098;&#6042;&#6039;&#6081;&#6033; (KH)</label>
+              <input type="text" id="nck" placeholder="e.g. &#6016;&#6072;&#6049;&#6070;">
             </div>
             <button class="btn btn-p" onclick="addCat()">+ Add</button>
           </div>
@@ -337,10 +337,10 @@ var TR={
   km:{ps:'\u1794\u1789\u17d2\u1785\u17bc\u179b PIN',
     bi:'▼ លុយចូល',
     bo:'▲ លុយចេញ',
-    lfl:'លំហូរ',ldt:'\u1780\u17b6\u179b\u1794\u179a\u17b7\u1785\u17d2\u1786\u17c1\u178f',
+    lfl:'លំហូរ',ldt:'កាលបរិច្ឆេទ',
     lcu:'រូបិយបណ្ណ',lam:'\u1785\u17c6\u1793\u17bd\u1793',
     lme:'តាមរយៈ',lca:'ប្រភេទ',
-    lno:'ការពិពណ៏នា',
+    lno:'ពិពណ៍នា',
     bsv:'✓ រក្សាទុក',bcl:'ផ្លាស់ប្ដូរម្ដងទៀត',
     ok:'\u179a\u1780\u17d2\u179f\u17b6\u178f\u17bb\u1780\u179a\u17bd\u1785!',
     er:'\u179f\u17bc\u1798\u1794\u1789\u17d2\u1785\u17bc\u179b\u1780\u17b6\u179b \u1793\u17b9\u1784\u1785\u17c6\u1793\u17bd\u1793\u17d4',
@@ -348,9 +348,9 @@ var TR={
     pp1m:'1\u1781\u17c2',pp3m:'3\u1781\u17c2',pp6m:'6\u1781\u17c2',pp1y:'1\u1786\u17d2\u1793\u17b6\u17c6',ppall:'\u178f\u17b6\u1798\u17bd\u179f',
     pfall:'រាល់លំហូរសាច់ប្រាក់',pfin:'លុយចូល',pfout:'លុយចេញ',
     pfca:'រូបិយបណ្ណ',pfma:'តាមរយៈធនាគារ/សាច់ប្រាក់',
-    hhd:'\u1780\u17b6\u179b\u1794\u179a\u17b7\u1785\u17d2\u1786\u17c1\u178f',hhc:'\u1794\u17d2\u179a\u1797\u17c1\u178f',hhn:'\u1796\u17b7\u1796\u178e\u17cc\u178e\u17b6',hhm:'\u179c\u17b7\u1792\u17b8',hhf:'\u178f\u17b7\u179f\u178f\u17d2\u178c',hha:'\u1785\u17c6\u1793\u17bd\u1793',
+    hhd:'កាលបរិច្ឆេទ',hhc:'ប្រភេទ',hhn:'ពិពណ៍នា',hhm:'\u179c\u17b7\u1792\u17b8',hhf:'\u178f\u17b7\u179f\u178f\u17d2\u178c',hha:'\u1785\u17c6\u1793\u17bd\u1793',
     ntx:'\u179a\u1780\u1798\u17b7\u1793\u17a1\u17be\u1789',
-    stpin:'ផ្លាស់ប្ដូរលេខសំងាត់',stpin2:'ណ្ណូបញ្ចូលលេខសំងាត់ថ្មី 4 ខ្ទង់',spbtn:'រក្សាទុក',
+    stpin:'ផ្លាស់ប្ដូរលេខសំងាត់',stpin2:'បញ្ចូលលេខសំងាត់ថ្មី 4 ខ្ទង់',spbtn:'រក្សាទុក',
     stcat:'គ្រប់គ្រងប្រភេទចំណូល/ចំណាយ',
     pok:'PIN \u1794\u17b6\u1793\u1795\u17d2\u179b\u17b6\u179f\u17cb!',per:'PIN \u178f\u17d2\u179a\u17bc\u179c\u178f\u17c2 4 \u1781\u17d2\u178f\u1784\u17cb\u17d4',pwrng:'PIN \u1798\u17b7\u1793\u178f\u17d2\u179a\u17b9\u1798\u178f\u17d2\u179a\u17bc\u179c\u17d4',
     ti:'\u1785\u17c6\u178e\u17bc\u179b\u179f\u179a\u17bb\u1794',to:'\u1785\u17c6\u178e\u17b6\u1799\u179f\u179a\u17bb\u1794',ne:'Net',sb:'\u1792\u1793\u17b6\u1782\u17b6\u179a',sc:'សាច់ប្រាក់',
@@ -638,13 +638,21 @@ function renderSum(){
       +'<td class="ro">'+(b>0?f2(b):'-')+'</td>'
       +'<td class="ro">'+(d>0?'\u17db'+Math.round(d).toLocaleString('en'):'-')+'</td></tr>';
   }).join('');
+  var KHR_RATE=4000;
+  var combinedUSD=uO+(kO/KHR_RATE);
   document.getElementById('scon').innerHTML=
     '<p style="font-size:13px;color:#aaa;margin-bottom:1rem">'+TR[L].pl[p]+' &middot; '+t('txn')(rows.length)+'</p>'
     +'<div class="stl">USD</div><div class="sg">'
     +'<div class="met"><div class="met-l">'+t('to')+'</div><div class="met-v exp">'+f2(uO)+'</div></div>'
     +'</div><div class="stl">KHR</div><div class="sg">'
     +'<div class="met"><div class="met-l">'+t('to')+'</div><div class="met-v exp">\u17db'+Math.round(kO).toLocaleString('en')+'</div></div>'
-    +'</div><div class="stl">'+t('sb')+' / '+t('sc')+'</div><div class="sg">'
+    +'</div>'
+    +'<div class="stl">'+(L==='km'?'Combined Total in USD (1 USD = 4,000 រៀល)':'Combined Total in USD (1 USD = 4,000 រៀល)')+'</div>'
+    +'<div class="sg">'
+    +'<div class="met"><div class="met-l">'+'USD + KHR converted'+'</div><div class="met-v exp">'+f2(combinedUSD)+'</div></div>'
+    +'<div class="met" style="background:#fff3e0"><div class="met-l" style="color:#a06000">'+'KHR converted'+'</div><div class="met-v" style="color:#a06000">'+f2(kO/KHR_RATE)+'</div></div>'
+    +'</div>'
+    +'<div class="stl">'+t('sb')+' / '+t('sc')+'</div><div class="sg">'
     +'<div class="met"><div class="met-l">'+t('sb')+'</div><div class="met-v">'+bk+'</div></div>'
     +'<div class="met"><div class="met-l">'+t('sc')+'</div><div class="met-v">'+ca+'</div></div>'
     +'</div><div class="stl">By Category</div>'
